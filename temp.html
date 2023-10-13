@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Converter Celsius to Fahrenheit"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="keywords" content="converter,calculator,celsius,fahrenheit"/>
+    <title>Temperature Converter</title>
+	<main>Temperature Converter</main>
+	
+    <link href="temp.css" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
+</head>
+<body>
+    
+	<header>
+	    <label for="converter">Conversion of <span class="C">°C</span> to <span class="F">°F</span></label>
+	</header>
+
+    <div>
+        <input type="text" id="converter" placeholder="°C">	
+	</div>
+    <p class="result"></p>
+    <div id="buttons">
+        <button class="convertButton">Convert</button>
+        <button class="resetButton">Reset</button>
+        <button class="changeButton">Change</button>
+	</div>
+    <script>
+        const Converter = document.querySelector('#converter');
+        const result = document.querySelector('.result');
+        const convertButton = document.querySelector('.convertButton');
+        const resetButton = document.querySelector('.resetButton');
+        const changeButton = document.querySelector('.changeButton');
+		const C = document.querySelector('.C')
+		const F = document.querySelector('.F')
+
+        const swap = () => {
+		    if (C.innerHTML === '°C'){
+			   C.innerHTML = '°F';
+			   F.innerHTML = '°C';
+			   converter.placeholder = 'Temperature in °F';
+			}else{
+			    F.innerHTML = '°F';
+				C.innerHTML = '°C';
+				converter.placeholder = 'Temperature in °C';
+			};
+        };
+        
+        const reset = () => {
+		    converter.value = '';
+			result.innerHTML = '';
+		}  		
+		
+		const convert = () =>{
+		    if(/^(-?)(\d+)(\.{1}\d+)?$/.test(converter.value)) {
+			   result.style.color = "black"
+			   if (C.innerHTML === '°C'){
+			      let value = (converter.value * 1.8) + 32;
+				  result.innerHTML = `${converter.value}°C is equal to ${value.toFixed(2)}°F`;
+			   } else{
+			      let value = (converter.value - 32) / 1.8;
+				  result.innerHTML = `${converter.value}°F is equal to ${value.toFixed(2)}°C`;
+			   }
+			}else if (converter.value == ''){
+			    result.style.color = "#993300"
+				result.innerHTML = 'Enter some number';
+			}else{
+			    result.style.color="#993300"
+				result.innerHTML = 'Enter only numbers!!!';
+			}
+		}
+		
+		changeButton.addEventListener('click',swap);
+		resetButton.addEventListener('click',reset);
+		convertButton.addEventListener('click',convert);
+		
+    </script>
+</body>
+</html>
